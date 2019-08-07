@@ -17,7 +17,7 @@ clean:
 	@find . -name "*.pyc" -delete
 
 test: clean
-	nosetests -s --tests=tests/ --with-xunit
+	pytest -s tests/ --junit-xml=junit.xml
 
 release:
 	python setup.py sdist register upload
