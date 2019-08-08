@@ -23,7 +23,7 @@ def custom_wrapper(method):
 class CorsTestCase(AsyncHTTPTestCase):
 
     def test_should_return_headers_with_default_values_in_options_request(self):
-        response = self.fetch('/default', self.stop, method='OPTIONS')
+        response = self.fetch('/default', method='OPTIONS')
         headers = response.headers
 
         self.assertNotIn('Access-Control-Allow-Origin', headers)
@@ -34,7 +34,7 @@ class CorsTestCase(AsyncHTTPTestCase):
         self.assertEqual(headers['Access-Control-Max-Age'], '86400')
 
     def test_should_return_headers_with_custom_values_in_options_request(self):
-        response = self.fetch('/custom', self.stop, method='OPTIONS')
+        response = self.fetch('/custom', method='OPTIONS')
         headers = response.headers
         self.assertEqual(headers['Access-Control-Allow-Origin'], '*')
         self.assertEqual(headers['Access-Control-Allow-Headers'], 'Content-Type')
@@ -44,13 +44,13 @@ class CorsTestCase(AsyncHTTPTestCase):
         self.assertNotIn('Access-Control-Max-Age', headers)
 
     def test_should_return_headers_for_requests_other_than_options(self):
-        response = self.fetch('/custom', self.stop, method='POST', body='')
+        response = self.fetch('/custom', method='POST', body='')
         headers = response.headers
         self.assertEqual(headers['Access-Control-Allow-Origin'], '*')
         self.assertEqual(headers['Access-Control-Expose-Headers'], 'Location')
 
     def test_should_support_custom_methods(self):
-        response = self.fetch('/custom_method', self.stop, method='OPTIONS')
+        response = self.fetch('/custom_method', method='OPTIONS')
         headers = response.headers
         self.assertEqual(headers["Access-Control-Allow-Methods"], 'OPTIONS, NEW_METHOD')
 
