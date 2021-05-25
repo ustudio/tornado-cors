@@ -4,12 +4,12 @@
 import inspect
 
 from tornado.web import RequestHandler
-from tornado_cors import custom_decorator
 
 
 def _get_class_that_defined_method(meth):
     for cls in inspect.getmro(meth.__self__.__class__):
-        if meth.__name__ in cls.__dict__: return cls
+        if meth.__name__ in cls.__dict__:
+            return cls
     return None
 
 
@@ -29,17 +29,17 @@ class CorsMixin(object):
         if self.CORS_EXPOSE_HEADERS:
             self.set_header('Access-Control-Expose-Headers', self.CORS_EXPOSE_HEADERS)
 
-    @custom_decorator.wrapper
-    def options(self, *args, **kwargs):
+    async def options(self, *args, **kwargs):
         if self.CORS_HEADERS:
             self.set_header('Access-Control-Allow-Headers', self.CORS_HEADERS)
         if self.CORS_METHODS:
             self.set_header('Access-Control-Allow-Methods', self.CORS_METHODS)
         else:
             self.set_header('Access-Control-Allow-Methods', self._get_methods())
-        if self.CORS_CREDENTIALS != None:
-            self.set_header('Access-Control-Allow-Credentials',
-                "true" if self.CORS_CREDENTIALS else "false")
+        if self.CORS_CREDENTIALS is not None:
+            self.set_header(
+                'Access-Control-Allow-Credentials', "true"
+                if self.CORS_CREDENTIALS else "false")
         if self.CORS_MAX_AGE:
             self.set_header('Access-Control-Max-Age', self.CORS_MAX_AGE)
 
@@ -58,7 +58,7 @@ class CorsMixin(object):
             if not meth:
                 continue
             handler_class = _get_class_that_defined_method(instance_meth)
-            if not handler_class is RequestHandler:
+            if handler_class is not RequestHandler:
                 methods.append(meth.upper())
 
         return ", ".join(methods)
