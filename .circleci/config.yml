@@ -29,7 +29,7 @@ jobs:
       - run:
           name: run tests
           command: |
-            . venv/bin/activate
+            . ~/venv/bin/activate
             pytest --verbose --junit-xml=test-reports/pytest.xml
 
       - store_artifacts:
@@ -50,13 +50,13 @@ jobs:
       - run:
           name: install dependencies
           command: |
-            python3 -m venv venv
-            . venv/bin/activate
+            python3 -m venv ~/venv
+            . ~/venv/bin/activate
             pip install twine
       - run:
           name: Publish to PyPI
           command: |
-            . venv/bin/activate
+            . ~/venv/bin/activate
             python setup.py sdist
             twine upload --username $PYPI_USERNAME --password $PYPI_PASSWORD dist/*
 
