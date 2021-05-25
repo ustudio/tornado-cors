@@ -1,5 +1,12 @@
-Tornado CORS [![Build Status](https://travis-ci.org/globocom/tornado-cors.png?branch=master)](https://travis-ci.org/globocom/tornado-cors)
+Tornado CORS [![ustudio](https://circleci.com/gh/ustudio/tornado-cors.svg?style=svg)](https://app.circleci.com/pipelines/github/ustudio/tornado-cors)
+
 ============
+
+Note: this is a fork of https://github.com/globocom/tornado-cors,
+which has been archived.
+
+The primary addition is support for Tornado 6 and newer versions of
+Python 3.
 
 Makes it easier to add CORS support to tornado apps.
 
@@ -14,7 +21,7 @@ Installing
 ----------
 
 ```
-pip install tornado-cors
+pip install ustudio-tornado-cors
 ```
 
 Using
@@ -25,15 +32,15 @@ from tornado_cors import CorsMixin
 
 
 class MyHandler(CorsMixin, RequestHandler):
-    
+
     # Value for the Access-Control-Allow-Origin header.
     # Default: None (no header).
     CORS_ORIGIN = '*'
-    
+
     # Value for the Access-Control-Allow-Headers header.
     # Default: None (no header).
     CORS_HEADERS = 'Content-Type'
-    
+
     # Value for the Access-Control-Allow-Methods header.
     # Default: Methods defined in handler class.
     # None means no header.
@@ -43,7 +50,7 @@ class MyHandler(CorsMixin, RequestHandler):
     # Default: None (no header).
     # None means no header.
     CORS_CREDENTIALS = True
-    
+
     # Value for the Access-Control-Max-Age header.
     # Default: 86400.
     # None means no header.
@@ -52,7 +59,7 @@ class MyHandler(CorsMixin, RequestHandler):
     # Value for the Access-Control-Expose-Headers header.
     # Default: None
     CORS_EXPOSE_HEADERS = 'Location, X-WP-TotalPages'
-    
+
     ...
 ```
 
@@ -63,7 +70,7 @@ Tornado CORS is licensed under the MIT License:
 
 The MIT License
 
-Copyright (c) 2013 globo.com
+Copyright (c) 2021 uStudio, Inc.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
